@@ -2,6 +2,8 @@
 
 In processed file:
 
+```delphi
+
 	{$region function headers}
 	// put function headers here, like
 	function do_something(argument, brgument: LongInt): LongInt; stdcall;
@@ -19,8 +21,12 @@ In processed file:
 	{$region deferred functions}
 	// here generated deferred function loaders will be inserted
 	{$endRegion deferred functions}
+	
+```
 
 Sample function loader template:
+
+```delphi
 
 	type T$routineName$ = $routineKind$ $routineTail$ {routineTail with ; }
 	var $routineName$_routine: T$routineName$;
@@ -29,3 +35,5 @@ Sample function loader template:
 		if GetRoutine(@$routineName$_routine, '$routineName$') then
 			$resultAssignmentPrefixIfFunction$$routineName$_routine($routineArguments$);
 	end;
+	
+```
