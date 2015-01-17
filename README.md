@@ -21,3 +21,11 @@ In processed file:
 	{$endRegion deferred functions}
 
 Sample function loader template:
+
+	type T$routineName$ = $routineKind$ $routineTail$ {routineTail with ; }
+	var $routineName$_routine: T$routineName$;
+	$routineKind$ $routineName$ $routineTail$
+	begin
+		if GetRoutine(@$routineName$_routine, '$routineName$') then
+			$resultAssignmentPrefixIfFunction$$routineName$_routine($routineArguments$);
+	end;
