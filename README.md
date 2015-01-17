@@ -16,7 +16,6 @@ In processed file:
 	$routineArguments$ -> argument, brgument (argument names separated by comma with no types)
 	{$endRegion function loader template}
 	
-
 	{$region deferred functions}
 	// here generated deferred function loaders will be inserted
 	{$endRegion deferred functions}
