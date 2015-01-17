@@ -331,7 +331,6 @@ func processText(text string) string {
 		writeLine("Error: deferred functions section not found; section markers are: '" + deferredFunctionsStartMarker + "', '" + deferredFunctionsEndMarker + "'")
 	}
 	if sectionsFound {
-		writeLine("Debug: template = '" + loaderTemplateSection.content + "'")
 		functionHeaders := parseFunctionHeaders(headersSection.content)
 		deferredLoadersText := generateDeferredLoaders(loaderTemplateSection.content, functionHeaders)
 		text = replace(text, deferredFunctionsMarker, deferredFunctionsStartMarker+windowsLineEnding+deferredLoadersText+windowsLineEnding+deferredFunctionsEndMarker)
@@ -369,12 +368,16 @@ func generateDeferredLoaders(template string, functionHeaders []routineHeader) s
 }
 
 func main() {
-	filePath := "MoxaApi.pas"
-	writeLine("Now reading file " + filePath + "...")
-	fileContent, readFileResult := ioutil.ReadFile(filePath)
-	if readFileResult == nil {
-		fileContentText := string(fileContent)
-		processedText := processText(fileContentText)
-		ioutil.WriteFile("generated"+filePath, []byte(processedText), os.ModePerm)
+	if len(os.Args) >= 2 {
+		filePath := os.Args[1]
+		writeLine("Now reading file " + filePath + "...")
+		fileContent, readFileResult := ioutil.ReadFile(filePath)
+		if readFileResult == nil {
+			fileContentText := string(fileContent)
+			processedText := processText(fileContentText)
+			ioutil.WriteFile("generated"+filePath, []byte(processedText), os.ModePerm)
+		}
+	} else {
+		writeLine("Error: program argument not specified")
 	}
 }
