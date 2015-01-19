@@ -278,9 +278,9 @@ func parseFunctionHeader(functionHeaderText string) routineHeader {
 		functionHeaderText = strings.TrimSpace(functionHeaderText[spacePosition+1:])
 		_, routineNameEndPosition := findNearest(functionHeaderText, routineNameTerminators)
 		if routineNameEndPosition >= 0 {
-			result.routineName = strings.TrimSpace(functionHeaderText[0:routineNameEndPosition])
-			functionHeaderText = strings.TrimSpace(functionHeaderText[routineNameEndPosition:])
-			result.routineTail = strings.TrimSpace(functionHeaderText)
+			result.routineName = trim(functionHeaderText[0:routineNameEndPosition])
+			functionHeaderText = trim(functionHeaderText[routineNameEndPosition:])
+			result.routineTail = trim(functionHeaderText)
 			result.fillArguments()
 		} else {
 			result.routineName = strings.TrimSpace(functionHeaderText)
